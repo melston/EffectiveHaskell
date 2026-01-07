@@ -1,0 +1,35 @@
+
+ghci> :info Semigroup
+type Semigroup :: * -> Constraint
+class Semigroup a where
+  (<>) :: a -> a -> a
+  GHC.Base.sconcat :: GHC.Base.NonEmpty a -> a
+  GHC.Base.stimes :: Integral b => b -> a -> a
+  {-# MINIMAL (<>) | sconcat #-}
+        -- Defined in ‘GHC.Base’
+...
+instance Semigroup b => Semigroup (a -> b) -- Defined in ‘GHC.Base’
+instance Semigroup a => Semigroup (IO a) -- Defined in ‘GHC.Base’
+instance Semigroup [a] -- Defined in ‘GHC.Base’
+instance Semigroup a => Semigroup (Maybe a)
+instance Semigroup (Either a b) -- Defined in ‘Data.Either’
+
+--------------
+
+ghci> :info Monoid
+type Monoid :: * -> Constraint
+class Semigroup a => Monoid a where
+  mempty :: a
+  mappend :: a -> a -> a
+  mconcat :: [a] -> a
+  {-# MINIMAL mempty | mconcat #-}
+        -- Defined in ‘GHC.Base’
+...
+instance Monoid b => Monoid (a -> b) -- Defined in ‘GHC.Base’
+instance Monoid a => Monoid (IO a) -- Defined in ‘GHC.Base’
+instance Monoid [a] -- Defined in ‘GHC.Base’
+instance Semigroup a => Monoid (Maybe a) -- Defined in ‘GHC.Base’
+instance Monoid Ordering -- Defined in ‘GHC.Base’
+instance Monoid a => Monoid (Solo a) -- Defined in ‘GHC.Base’
+
+--------------
